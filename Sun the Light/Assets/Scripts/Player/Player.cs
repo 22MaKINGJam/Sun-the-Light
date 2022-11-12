@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     Animator bigWheelAnim;  //나중에 애니메이션 위해서
     Animator smallWheelAnim;
+    Animator horseAnim;
     Rigidbody2D player;
 
     public float curTime = 0.0f;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     {
         bigWheelAnim = gameObject.transform.GetChild(3).GetComponent<Animator>();
         smallWheelAnim = gameObject.transform.GetChild(4).GetComponent<Animator>();
+        horseAnim = gameObject.transform.GetChild(1).GetComponent<Animator>();
         player = GetComponent<Rigidbody2D>();
         player.AddForce(Vector2.down * gravity, ForceMode2D.Impulse);
     }
@@ -97,11 +99,14 @@ public class Player : MonoBehaviour
             Debug.Log("fdjfke");
             bigWheelAnim.SetBool("isMoving", true);
             smallWheelAnim.SetBool("isMoving", true);
+            horseAnim.SetBool("isHorseRunning", true);
+
         }
         else
         {
             bigWheelAnim.SetBool("isMoving", false);
             smallWheelAnim.SetBool("isMoving", false);
+            horseAnim.SetBool("isHorseRunning", false);
         }
 
 
