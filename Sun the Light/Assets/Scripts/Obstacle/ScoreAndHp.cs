@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreAndHp : MonoBehaviour
 {
+    public Slider healthBar;
+    public Text UIScore;
+    public Text UIMaxScore;
+    public GameManager gameManager;
+
     [SerializeField]
     private float score;
 
@@ -25,9 +31,11 @@ public class ScoreAndHp : MonoBehaviour
         return hp;
     }
 
-    private void Awake()
+    private void Start()
     {
         effectAudioSource = GameObject.Find("Effect Audio Source").GetComponent<AudioSource>();
+        healthBar = GameObject.FindWithTag("HP").GetComponent<Slider>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -40,15 +48,16 @@ public class ScoreAndHp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "character")
+        if(collision.tag == "Player")
         {
             DestroyObstacle();
             DecreaseHP();
         }
-        else if(collision.tag == "bullet")
+        else if(collision.tag == "Skill")
         {
             DestroyObstacle();
             IncreaseScore();
+            Destroy(collision.gameObject);
         }
     }
 
@@ -61,11 +70,16 @@ public class ScoreAndHp : MonoBehaviour
 
     private void DecreaseHP()
     {
-        // HP 값을 가져와 적용 
+        healthBar.value -= hp;
     }
 
     private void IncreaseScore()
     {
-        // 스코어 값을 가져와 적용
+        gameManager.score += score;
+
+        if(gameManager.maxScore < gameManager.score)
+        {
+            gameManager.maxScore = gameManager.score;
+        }
     }
 }

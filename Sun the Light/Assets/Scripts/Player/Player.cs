@@ -96,7 +96,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
-            Debug.Log("fdjfke");
             bigWheelAnim.SetBool("isMoving", true);
             smallWheelAnim.SetBool("isMoving", true);
             horseAnim.SetBool("isHorseRunning", true);
